@@ -1,22 +1,23 @@
-class RespiratoryDoctor:
-    def __init__(self, name):
-        self.name = name
+from person import Person
 
-    def diagnose(self, symptoms):
-        print(f"Doctor {self.name} checking symptoms: {symptoms}")
-        
-        symptoms = symptoms.lower()
-        
-        if "cough" in symptoms and "fever" in symptoms:
-            return "Possible flu or chest infection. Rest, fluids, and see a doctor if it lasts >3 days."
-        elif "shortness of breath" in symptoms or "wheezing" in symptoms:
-            return "Possible asthma/bronchitis. Please consult a doctor immediately."
-        elif "cough" in symptoms:
-            return "Common cold or mild cough. Stay hydrated and rest."
-        else:
-            return "Symptoms unclear. Please see a medical professional for proper diagnosis."
-          
-doc = RespiratoryDoctor("Dr. Pelumi")
-user_input = input("Describe your respiratory symptoms: ")
-result = doc.diagnose(user_input)
-print("Diagnosis:", result)
+class Doctor(Person):
+    def __init__(self, name, age, staff_id, specialty):
+        super().__init__(name, age)
+        self.staff_id = staff_id
+        self.specialty = specialty
+        self.patients = []
+
+    def diagnose(self, patient):
+        return f"Dr. {self.name} diagnosed {patient.name} with {patient.symptoms}"
+
+    def add_patient(self, patient):
+        self.patients.append(patient)
+        return f"{patient.name} assigned to Dr. {self.name}"
+
+    def list_patients(self):
+        if not self.patients:
+            return f"Dr. {self.name} has no patients yet"
+        return [p.name for p in self.patients]
+
+    def __str__(self):
+        return f"Dr. {self.name}, Specialty: {self.specialty}, Staff ID: {self.staff_id}"
