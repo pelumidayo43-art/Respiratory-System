@@ -1,5 +1,3 @@
-from person import Person
-
 class Doctor(Person):
     def __init__(self, name, age, staff_id, specialty):
         super().__init__(name, age)
